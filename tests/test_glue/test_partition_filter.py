@@ -191,7 +191,10 @@ def test_get_partitions_expression_string_column():
     for expression in string_col_is_two_expressions:
         response = client.get_partitions(**kwargs, Expression=expression)
         partitions = response["Partitions"]
-        partitions.should.have.length_of(1)
+        try:
+            partitions.should.have.length_of(1)
+        except AssertionError as e:
+            raise AssertionError(expression) from e
         partition = partitions[0]
         partition["Values"].should.be.within((["two"], ["2"]))
 
