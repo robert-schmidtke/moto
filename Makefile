@@ -30,8 +30,7 @@ format:
 test-only:
 	rm -f .coverage
 	rm -rf cover
-	pytest -sv --cov=moto --cov-report xml ./tests/ $(TEST_EXCLUDE)
-	MOTO_CALL_RESET_API=false pytest -n 4 $(PARALLEL_TESTS)
+	pytest -sv --cov=moto --cov-report xml ./tests/test_glue/test_partition_filter.py -k "test_get_partitions_expression_string_column"
 
 test: lint test-only
 
